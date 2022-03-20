@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h5>질문 등록</h5>
+    <form method="post">
+        {% csrf_token %}
+        <!-- {{ form.as_p }}-->
+
+        <!-- error handling -->
+        {% if form.errors %}
+        <div class="error-alert" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}은 필수 항목입니다</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div>
+            <label for="subject">질문 제목</label>
+            <input type="text" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}"/>
+        </div>
+        <div>
+            <label for="content">질문 내용</label>
+            <textarea type="text" name="content" id="content" rows="10" required></textarea>
+        </div>
+
+        <button type="submit">저장하기</button>
+    </form>
+</div>
+
+{% endblock %}

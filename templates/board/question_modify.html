@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+
+<div>
+    <h5>질문 등록</h5>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="subject">질문 제목</label>
+            <input type="text" name="subject" id="subject"
+                   value="{{ form.subject.value|default_if_none:question.subject }}"
+            />
+        </div>
+        <div>
+            <label for="content">질문 내용</label>
+            <textarea type="text" name="content" id="content" rows="10" required>
+                {{question.content}}
+            </textarea>
+        </div>
+
+        <button type="submit">저장하기</button>
+    </form>
+</div>
+</section>
+{% endblock %}

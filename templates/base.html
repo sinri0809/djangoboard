@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, sinriboard!</title>
+</head>
+<body>
+
+<header>
+<!--navbar.html을 include-->
+{% include 'navbar.html' %}
+</header>
+
+<!--개별 template 추가 영역 시작-->
+<main>
+{% block content %}
+{% endblock %}
+</main>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="component-login">
+  <!--login 하기-->
+  <form method="post" action="{% url 'user:login' %}">
+    {% csrf_token %}
+    <!-- ?next=/ 를 실행하기위한 코드 -->
+    <input type="hidden" name="next" value="{{ next }}" />
+
+    {% include 'user/form_errors.html' %}
+    <div>
+      <label for="username">ID</label>
+      <input type="text" name="username" id="username"
+             value="{{ form.username.value|default_if_none:'' }}"
+      />
+    </div>
+    <div>
+      <label for="password">PW</label>
+      <input type="password" name="password" id="password"
+             value="{{ form.password.value|default_if_none:'' }}"
+      />
+    </div>
+
+    <button type="submit">로그인</button>
+  </form>
+
+  <!--회원 가입하기-->
+  <div>
+    <p>아직 계정이 없으세요? </p>
+    <a href="{% url 'user:signup' %}">회원가입하기</a>
+  </div>
+
+</section>
+
+{% endblock content %}

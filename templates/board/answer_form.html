@@ -1,0 +1,23 @@
+<div class="answer-list">
+    <h5>{{ question.answer_set.count }}개의 답변이 있습니다.</h5>
+    <ul>
+        {% for answer in question.answer_set.all %}
+            <li>
+                {{ answer.content }}
+                <span>{{ answer.create_date }}</span>
+<!--                <a href="{% url 'board:answer_modify' answer.id %}">수정하기</a>-->
+<!--                <a href="{% url 'board:answer_delete' answer.id %}">삭제하기</a>-->
+            </li>
+
+<!--        전부 rendering하는거는 비효율적임 다른 방법이 있을거임 -->
+<!--            {% if form %}-->
+<!--            <div> form? </div>-->
+<!--            {% endif %}-->
+<!--            <li>-->
+<!--                <form method="post">-->
+<!--                    -->
+<!--                </form>-->
+<!--            </li>-->
+        {% endfor %}
+    </ul>
+</div>

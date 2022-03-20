@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+
+<!-- 질문 글 -->
+<div class="question-content">
+    <span>{{ question.id }}{{ question.create_date }}</span>
+    <h1>{{ question.subject }}</h1>
+    <p>{{ question.content }}</p>
+
+    <a href="{% url 'board:question_modify' question.id %}">수정하기</a>
+    <span>마지막 수정일자: {{ question.modify_date }}</span>
+    <a href="{% url 'board:index' %}">뒤로가기</a>
+    <a href="{% url 'board:question_delete' question.id %}">삭제하기</a>
+</div>
+
+<!-- 경고창 -->
+<div class="alert">
+    {% if messages %}
+    <div>
+        <strong>권한이 없습니다.</strong>
+        {% for message in messages %}
+            <div>{{ message.tags }}</div>
+            <div>{{ message.message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- 답변 글들 -->
+{% include 'board/answer_form.html' %}
+
+<!-- 답변 등록하기-->
+<div class="answer-create">
+    <form action="{% url 'board:answer_create' question.id %}" method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="form-alert" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.errors }}</strong>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- devtool로 편집한다고해도 login페이지로 이동한다.-->
+        <textarea {% if not user.is_authenticated %}disabled{% endif %} name="content" id="content" rows="15"></textarea>
+        <input type="submit" value="답변등록" />
+
+    </form>
+</div>
+</section>
+
+{% endblock %}
